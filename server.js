@@ -21,6 +21,11 @@ client.connect().then(() => { console.log("connect succeed"); }).catch();
 
 
 //routs
+app.put('/updateMovie/:id', updateMovieHandler);
+app.delete('/deleteMovie/:id', deleteMovieHandler)
+app.get('/getMovie/:id', getMovieHandler);
+
+
 app.post('/addMovie', addMovieHandler);
 app.get('/getAllMovies', getAllMoviesHandler);
 
@@ -29,12 +34,42 @@ app.get("/search", searchHandler);
 app.get("/popular", popularHandler);
 app.get("/topRated", topRatedHandler);
 
-
 app.get('/', homePageHandler);
 app.get('/favorite', favoritePgeHandler);
 
 
 //functions
+//Lab14
+function updateMovieHandler(req, res) {
+    let movieId = req.params.id;
+    let { title, release_date, poster_path, overview, comment } = req.body;
+    let sql = `UPDATE movies
+    SET title = $1, release_date = $2, poster_path = $3, overview= $4, comment= $5
+    WHERE id = $6 RETURNING *;`;
+    let values = [title, release_date, poster_path, overview, comment, movieId];
+    client.query(sql, values).then(result => {
+        res.status(200).json(result.rows)
+
+    }).catch()
+}
+function deleteMovieHandler(req, res) {
+    let { id } = req.params;
+    let sql = `DELETE FROM movies WHERE id = $1 ;`;
+    let values = [id];
+    client.query(sql, values).then(result => {
+        res.status(204).send("successfuly deleted")
+    }).catch()
+}
+function getMovieHandler(req, res) {
+    const id = req.params.id;
+    const sql = `SELECT * FROM movies WHERE id = $1 ;`;
+    let value = [id];
+    client.query(sql, value).then((reuslt) => {
+        res.status(200).json(reuslt.rows)
+    })
+        .catch((error) => { console.log(error); })
+}
+
 //Lab13
 function addMovieHandler(req, res) {
 
