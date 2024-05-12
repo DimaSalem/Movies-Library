@@ -1,7 +1,7 @@
 # Movies_Library - V.0.2 🎬❤️
   **Author Name**: Dima Salem
   
-![wrrc3_imge](./imgs/wrrc3.png)
+![wrrc3_imge](./wrrc3.png)
 ## Overview 
 This project is an Express.js API for accessing movie data. It lets users fetch trending movies and search for movies by title. The app connects to TMDB (The Movie Database) API to get movie information.
 
@@ -44,7 +44,7 @@ Use CRUD (Create, Read, Update, Delete)
 # Movies_Library - V.0.1 
   **Author Name**: Dima Salem
   
-![wrrc](./imgs/wrrc2.jpg)
+![wrrc](./wrrc2.jpg)
 ## Overview 
 This project is an Express.js API for accessing movie data. It lets users fetch trending movies and search for movies by title. The app connects to The Movie Database API to get movie information.
 
@@ -71,7 +71,7 @@ This project is an Express.js API for accessing movie data. It lets users fetch 
 # Movies-Library v.0.0
 **Author Name**: Dima Salem
 
-![WRRC](./imgs/wrrc.jpg)
+![WRRC](./wrrc.jpg)
 
 ## Overview
 #### This application serves as a basic framework for serving movie data and handling simple HTTP requests.
