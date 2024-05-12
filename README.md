@@ -1,3 +1,46 @@
+# Movies_Library - V.0.2 🎬❤️
+  **Author Name**: Dima Salem
+  
+![wrrc3_imge](./imgs/wrrc3.png)
+## Overview 
+This project is an Express.js API for accessing movie data. It lets users fetch trending movies and search for movies by title. The app connects to TMDB (The Movie Database) API to get movie information.
+
+## Getting Started
+1. Creating the Data Base 
+    - Make sure the DB is running using `sqlstart`
+    - `psql`
+    - `CREATE DATABASE YourdbName`
+    - `\l` list of DataBase
+    - `\q` to quit psql 
+2. Creating the Table 
+    - create a SQL File  `schema.sql ` file in my project 
+    - Create Table
+        ```
+        CREATE TABLE table_name (
+            column1 datatype,
+            column2 datatype,
+            column3 datatype,
+        ....
+        ); 
+        ```
+3. Connect the DB with table (Terminal)
+    - `psql DB name` 
+    - `\d` check if table exexists
+    - `\q ` To quit 
+    - `psql -d DBname -f filename `
+
+4. To Write qureis in Js File:
+    - install postgres package `npm install pg `
+
+
+## New Project Features   
+Use CRUD (Create, Read, Update, Delete) 
+1. Add Movie :
+    This feature allows clients to send a POST request to the /addMovie endpoint with the details of a movie in the request body.
+
+2. Get Movie :
+    This feature allows clients to send a GET request to the /getMovies endpoint to retrieve all movies from the database.
+
 # Movies_Library - V.0.1 
   **Author Name**: Dima Salem
   

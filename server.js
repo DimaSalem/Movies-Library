@@ -5,13 +5,25 @@ const app = express()
 const axios = require('axios');
 const cors = require('cors');
 app.use(cors());
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 const port = process.env.PORT;;
 const apiKey = process.env.API_KEY;
-
 const movieData = require('./Movie_Data/data.json');
 
+const { Client } = require('pg')
+const url = `postgres://student:0000@localhost:5432/moviedb`
+const client = new Client(url)
+
+client.connect().then(() => { console.log("connect succeed"); }).catch();
+
+
 //routs
+app.post('/addMovie', addMovieHandler);
+app.get('/getAllMovies', getAllMoviesHandler);
+
 app.get('/trending', trendingHandler);
 app.get("/search", searchHandler);
 app.get("/popular", popularHandler);
@@ -23,6 +35,28 @@ app.get('/favorite', favoritePgeHandler);
 
 
 //functions
+//Lab13
+function addMovieHandler(req, res) {
+
+    const { id, title, release_date, poster_path, overview, comment } = req.body
+    const sql = `INSERT INTO movies(id, title, release_date, poster_path, overview, comment)
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`
+    const values = [id, title, release_date, poster_path, overview, comment]
+
+    client.query(sql, values).then((reuslt) => {
+        console.log(reuslt.rows)
+        res.status(201).json(reuslt.rows)
+    }).catch(error => { console.log(error); })
+}
+function getAllMoviesHandler(req, res) {
+    const sql = `SELECT * FROM movies;`
+    client.query(sql).then((reuslt) => {
+        const data = reuslt.rows
+        res.json(data)
+
+    }).catch(error => { console.log(error); })
+}
+
 //Lab12
 function trendingHandler(req, res) {
     let url = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=en-US`;
